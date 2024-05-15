@@ -4,6 +4,8 @@
     {
         public App()
         {
+            //Realiza el proceso de transformacion de cs
+            //Normalmente los errores estan en este metodo
             InitializeComponent();
 
             MainPage = new AppShell();
