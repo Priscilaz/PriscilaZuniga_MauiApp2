@@ -16,7 +16,8 @@ namespace PriscilaZuniga_MauiApp2
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+    		//Llamada a metodos externos, inyecta codigo
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

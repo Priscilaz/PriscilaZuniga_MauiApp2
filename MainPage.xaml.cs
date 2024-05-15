@@ -1,25 +1,48 @@
-﻿namespace PriscilaZuniga_MauiApp2
+﻿
+
+namespace PriscilaZuniga_MauiApp2
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
+        
+        //Toda esta clase es el code behind que transforma xaml en cs
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        //Esto es un event handler
+        //Debo conocer le objeto que lanza y algun argumento
+        string translatedNumber;
+
+        private void OnTranslate(object sender, EventArgs e)
         {
-            count++;
+            string enteredNumber = PhoneNumberText.Text;
+            translatedNumber = PhonewordTranslator.ToNumber(enteredNumber);
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+            if (!string.IsNullOrEmpty(translatedNumber))
+            {
+                CallButton.IsEnabled = true;
+                CallButton.Text = "Call " + translatedNumber;
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            {
+                CallButton.IsEnabled = false;
+                CallButton.Text = "Call";
+            }
         }
+        async void OnCall(object sender, System.EventArgs e)
+        {
+            if (await this.DisplayAlert(
+                "Dial a Number",
+                "Would you like to call " + translatedNumber + "?",
+                "Yes",
+                "No"))
+            {
+                // TODO: dial the phone
+            }
+        }
+
     }
 
 }
